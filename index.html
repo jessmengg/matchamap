@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatchaMap | Find Your Perfect Matcha Near NEU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            MatchaMap
+        </div>
+    </header>
+    <section class="hero">
+        <h1>
+            MatchaMap
+            <span>Matcha Cafes Near Northeastern</span>
+        </h1>
+
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search by cafe, neighborhood, or drink...">
+                <button class="search-btn" onclick="performSearch()">Find Matcha</button>
+            </div>
+
+
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
+                <button class="filter-btn" data-filter="open-now" onclick="setFilter('open-now')">Open Now</button>
+                <button class="filter-btn" data-filter="hot" onclick="setFilter('hot')">Hot ☕</button>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="totalCafes">16</div>
+                <div class="stat-label">Cafes</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="totalDrinks">103</div>
+                <div class="stat-label">Drinks</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="totalReviews">250</div>
+                <div class="stat-label">Reviews</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <h2>Cafe Map</h2>
+        <div id="map"></div>
+    </section>
+
+    <section class="results-section" id="results">
+        <div class="results-header">
+            <div class="results-count" id="resultsCount">Showing 16 cafes</div>
+            <select class="sort-dropdown" id="sortDropdown" onchange="sortResults()">
+                <option value="rating">Sort by Rating</option>
+                <option value="distance">Sort by Distance</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="reviews">Most Reviewed</option>
+            </select>
+        </div>
+
+        <div class="cafes-grid" id="cafesGrid">
+        </div>
+
+        <div class="empty-state" id="emptyState">
+            <h3>No cafes found</h3>
+            <p>Try adjusting your search or filters</p>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <div class="modal-title-block">
+                    <h2 class="modal-title" id="modalTitle">Cafe Name</h2>
+                    <p class="modal-subtitle" id="modalSubtitle">Location</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-stats" id="modalStats">
+                </div>
+
+                <div class="modal-section">
+                    <h3>About</h3>
+                    <p id="modalDescription"></p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Hours</h3>
+                    <p id="modalHours"></p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Menu</h3>
+                    <div class="drinks-grid" id="modalDrinks">
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Recent Reviews</h3>
+                    <div id="modalReviews">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            MatchaMap
+        </div>
+        <p>&copy; 2025 MatchaMap. Only near NEU.</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
